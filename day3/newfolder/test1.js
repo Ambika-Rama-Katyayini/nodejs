@@ -9,9 +9,14 @@ function sum(a, b){
 function sub(a, b){
     console.log(a-b);
 }
-
 let name = "abc"
-
-module.exports = {
-    test, sum, name
+let obj = {
+    name: "xyz",
+    age: 26
 }
+let n = "Katya"
+// this is an exports object
+module.exports = {        
+    test, sum, name, obj
+}
+module.exports.name = n;
