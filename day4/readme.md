@@ -8,7 +8,8 @@
         - 4. fs.unlink()
         - 5. fs.readdir()
         - 6. fs.mkdir() - creating a new folder
-        - 7. fs.rmdir() - will only remove empty file 
+        - 7. fs.rmdir() - will only remove empty
+    - file 
     - path
     - os
     - events
