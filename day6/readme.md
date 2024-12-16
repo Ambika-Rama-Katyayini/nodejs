@@ -75,3 +75,6 @@
     - localhost:4500/Hyderabad
         - Hello welcome to Hyderabad
 
+This is how we work with query and path parameters
+
+
