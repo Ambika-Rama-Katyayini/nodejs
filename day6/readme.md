@@ -64,11 +64,13 @@
 3. How to access them in node js ?
 
 - query paramters
+    - req.query.city
 
     - localhost:4500/?city=Andhra
         - Hello welcome to Andhra
 
 - path parameters
+    - req.params.city
 
     - localhost:4500/Hyderabad
         - Hello welcome to Hyderabad
