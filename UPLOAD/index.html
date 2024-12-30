@@ -11,6 +11,39 @@
     crossorigin="anonymous">
 </head>
 <body>
-    
+    <h2 class="text-center text-primary">File upload to backend</h2>
+    <!-- <form action=""></form> -->
+    <div class="container w-50 mt-3 m-auto row">
+        <input type="file" id = "avatar" class="form-control col">
+        <button onclick = "uploadFile" class="btn btn-primary col-2">Upload</button>
+    </div>
+    <script>
+        let avatar = document.getElementById('avatar');
+        function uploadFile(){
+            const file = avatar.files[0]
+            if(file){
+                // to send multimedia data we need to create "FileData()"" for sure
+                const formData = new FormData();
+                formData.append('avatar', file);
+                fetch(
+                    "http://localhost:3000", {
+                        method: 'POST',
+                        body: formData
+                    }
+                )
+                .then(
+                    (res)=>{
+                        console.log(res);
+                    }
+                )
+                .catch(
+                    (err)=>{
+                        console.log(err);
+                    }
+                )
+            } 
+        }
+    </script>
 </body>
+
 </html>
