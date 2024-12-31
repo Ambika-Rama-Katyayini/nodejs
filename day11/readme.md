@@ -37,23 +37,29 @@
     - here we used bootstrap for styling
     -----------------------------------------------------------
 # this is the code in day11/index.js
-    - app.use(cors());
+    -   app.use(cors());
 
-    // this is diskStorage type Object in multer
-    const ds = multer.diskStorage({
-        destination: 'day11/uploads',
-        filename: (req, file, cb) => {
-            cb(null, Date.now() + '-' + file.originalname)
-        }
-    })
-    // this is actual multer object 
-    const upload = multer({
-        storage: ds,
-        dest: '/upload/'
-    })
-    app.get('/', (req, res)=>{
-        res.send('Hi')
-    })
+        // this is diskStorage type Object in multer
+        const ds = multer.diskStorage({
+            destination: 'day11/uploads',
+            filename: (req, file, cb) => {
+                cb(null, Date.now() + '-' + file.originalname)
+            }
+        })
+        // this is actual multer object 
+        const upload = multer({
+            storage: ds,
+            dest: '/upload/'
+        })
+        app.get('/', (req, res)=>{
+            res.send('Hi')
+        })
+    -   way 1
+    -   destination: 'day11/uploads',
+    -   way 2
+    -   destination: path.join(__dirname, 'uploads'), // Corrected path
+    -   way 3
+    -   
 # ----------------------------------------------------------------------------
 https://chatgpt.com/c/6773f330-4674-8008-8ae6-35864f55f54c
 
