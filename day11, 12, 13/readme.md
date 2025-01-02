@@ -1,4 +1,4 @@
-## Video11 - DAY 11 - Multer - Part - 1
+## DAY 11 - Multer - Part - 1
 # Multer File Upload - Multer Middleware
 1. npm init -y
 2. npm i express
@@ -70,7 +70,7 @@ https://chatgpt.com/c/67765a12-5ec8-8008-8eb3-d7c7084262a1
 # -----------------------------------------------------------------------------
 # _____________________________________________________________________________
 
-## Video12 - DAY 12 - Multer - Part - 2
+## DAY 12 - Multer - Part - 2
 
 # MULTER File Type
 
@@ -192,3 +192,9 @@ async function uploadFile() {
                 console.error('Error:', err);
             }
         }
+# ---------------------------------------------------------
+
+# Day13 - Multer - Upload Multiple files at a time
+
+- .single is for uploading single files
+- .array is for uploading multiple files at a time
