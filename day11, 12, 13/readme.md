@@ -97,3 +97,98 @@ app.post('/upload', (req, res) => {
 });
 
 --------------------------------------------------------------------------------
+
+# Multer File Size - "limits"
+
+// Multer object with disk storage
+const upload = multer({
+  storage: ds,
+  fileFilter: filter,
+  limits: {
+    fileSize: 1 * 1024 * 1024, // this is limiting file size to 1MB
+  },
+}).single("avatar");
+
+// -------------------------------------------------------
+
+- with the help of "code" - we can write custome fronit end messages or alert while uploading files
+
+// ------------------
+
+# this is backend 
+___________________________
+// Handle file upload
+app.post("/upload", (req, res) => {
+  upload(req, res, (err) => {
+    if (err) {
+      if (err instanceof multer.MulterError) {
+        if(err.code === 'LIMIT_FILE_SIZE'){
+            res.status(400).send({
+                code: 'large',
+                message:"File is Large, only upload files less than 1MB"
+                // error:"File is Large, only upload files less than 1MB"
+            })
+        }
+        else{
+            res.status(400).send({
+                code: 'unknown',
+                message:"Error while uploading"
+            })
+        }
+        // console.log(err);
+        // res.status(400).send({
+        //   message: "error while uploading",
+        // });
+      } else {
+        res.status(400).send({
+            code: 'invalid type',
+            message: "Invalid File Type only allowed jpeg, jpg",
+        });
+      }
+    } else {
+      res.send({
+        code: "success",
+        message: "uploaded successfully",
+      });
+    }
+  });
+});
+
+// ------------------
+
+# this is frontend 
+___________________________
+async function uploadFile() {
+            try {
+                const file = avatar.files[0];
+                if (file) {
+                    const formData = new FormData();
+                    formData.append('avatar', file);
+
+                    const res = await fetch("http://localhost:3000/upload", {
+                        method: 'POST',
+                        body: formData,
+                    });
+
+                    const msg = await res.json();
+                    console.log('Response:', msg);
+                    if (msg.code === 'large') {          - this is where "code"s are helpful
+                        alert("file is too large");
+                    }
+                    else if (msg.code === 'unknown') {
+                        alert('error while uploading');
+                    }
+                    else if (msg.code === 'invalid type') {
+                        alert("Invalid File Type only allowed jpeg, jpg, png having 1MB")
+                    }
+                    else if (msg.code === 'success') {
+                        alert("Uploaded Successfuly")
+                    }
+
+                } else {
+                    console.log('No file selected.');
+                }
+            } catch (err) {
+                console.error('Error:', err);
+            }
+        }

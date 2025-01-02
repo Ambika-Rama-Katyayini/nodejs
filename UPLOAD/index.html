@@ -55,6 +55,19 @@
 
                     const msg = await res.json();
                     console.log('Response:', msg);
+                    if (msg.code === 'large') {
+                        alert("file is too large");
+                    }
+                    else if (msg.code === 'unknown') {
+                        alert('error while uploading');
+                    }
+                    else if (msg.code === 'invalid type') {
+                        alert("Invalid File Type only allowed jpeg, jpg, png having 1MB")
+                    }
+                    else if (msg.code === 'success') {
+                        alert("Uploaded Successfuly")
+                    }
+
                 } else {
                     console.log('No file selected.');
                 }
