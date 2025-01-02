@@ -80,8 +80,8 @@ https://chatgpt.com/c/67765a12-5ec8-8008-8eb3-d7c7084262a1
 
 -------------------------------------------------------------------------------
 
-// Handle file upload
-app.post('/upload', (req, res) => {
+- // Handle file upload
+- app.post('/upload', (req, res) => {
     upload(req, res, (err)=>{
         if(err){
             if(err instanceof multer.MulterError){
@@ -94,20 +94,20 @@ app.post('/upload', (req, res) => {
             })
         }
     })  
-});
+ });
 
 --------------------------------------------------------------------------------
 
 # Multer File Size - "limits"
 
-// Multer object with disk storage
-const upload = multer({
+- // Multer object with disk storage
+- const upload = multer({
   storage: ds,
   fileFilter: filter,
   limits: {
     fileSize: 1 * 1024 * 1024, // this is limiting file size to 1MB
   },
-}).single("avatar");
+ }).single("avatar");
 
 // -------------------------------------------------------
 
@@ -117,8 +117,8 @@ const upload = multer({
 
 # this is backend 
 ___________________________
-// Handle file upload
-app.post("/upload", (req, res) => {
+- // Handle file upload
+- app.post("/upload", (req, res) => {
   upload(req, res, (err) => {
     if (err) {
       if (err instanceof multer.MulterError) {
@@ -152,9 +152,9 @@ app.post("/upload", (req, res) => {
       });
     }
   });
-});
+ });
 
-// ------------------
+// --------------------------------------------
 
 # this is frontend 
 ___________________________
