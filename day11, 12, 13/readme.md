@@ -198,3 +198,15 @@ async function uploadFile() {
 
 - .single is for uploading single files
 - .array is for uploading multiple files at a time
+- fileSize: 1 * 1024 * 1024, // this is for all files combined should be less than 1MB
+- this is code in "NODEJS/UPLOAD/index.html"
+-   // to store multiple files at a time
+-   const upload = multer({
+    storage: ds,
+    fileFilter: filter,
+    limits: {
+        fileSize: 1 * 1024 * 1024, // this is for all files combined should be less than 1MB
+    },
+    }).array("file");
+- this is code in "day11, 12, 13/index.js"
+- 

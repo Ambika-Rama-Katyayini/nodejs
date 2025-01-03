@@ -59,13 +59,29 @@ const filter = (req, file, cb) => {
 };
 
 // Multer object with disk storage
+// ------------------------------------------------------------------------------------------
+// To store single file at a time
+// ------------------------------------------------------------------------------------------
+// const upload = multer({
+//   storage: ds,
+//   fileFilter: filter,
+//   limits: {
+//     fileSize: 1 * 1024 * 1024,
+//   },
+// }).single("avatar");
+// ------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------
+// To store multiple files at a time
+// ------------------------------------------------------------------------------------------
 const upload = multer({
   storage: ds,
   fileFilter: filter,
   limits: {
-    fileSize: 1 * 1024 * 1024,
+    fileSize: 1 * 1024 * 1024, // this is for all files combined should be less than 1MB
+    files: 3,
   },
-}).single("avatar");
+}).array("file");
+// ------------------------------------------------------------------------------------------
 
 app.get("/", (req, res) => {
   res.send("Hi");
@@ -76,18 +92,17 @@ app.post("/upload", (req, res) => {
   upload(req, res, (err) => {
     if (err) {
       if (err instanceof multer.MulterError) {
-        if(err.code === 'LIMIT_FILE_SIZE'){
-            res.status(400).send({
-                code: 'large',
-                message:"File is Large, only upload files less than 1MB"
-                // error:"File is Large, only upload files less than 1MB"
-            })
-        }
-        else{
-            res.status(400).send({
-                code: 'unknown',
-                message:"Error while uploading"
-            })
+        if (err.code === "LIMIT_FILE_SIZE") {
+          res.status(400).send({
+            code: "large",
+            message: "File is Large, only upload files less than 1MB",
+            // error:"File is Large, only upload files less than 1MB"
+          });
+        } else {
+          res.status(400).send({
+            code: "unknown",
+            message: "Error while uploading",
+          });
         }
         // console.log(err);
         // res.status(400).send({
@@ -95,8 +110,8 @@ app.post("/upload", (req, res) => {
         // });
       } else {
         res.status(400).send({
-            code: 'invalid type',
-            message: "Invalid File Type only allowed jpeg, jpg",
+          code: "invalid type",
+          message: "Invalid File Type only allowed jpeg, jpg",
         });
       }
     } else {
@@ -107,36 +122,6 @@ app.post("/upload", (req, res) => {
     }
   });
 });
-
-// gpt corrected code
-// app.post('/upload', (req, res) => {
-//     upload(req, res, (err) => {
-//         if (err) {
-//             if (err instanceof multer.MulterError) {
-//                 // Multer-specific error
-//                 return res.status(400).send({ error: "Error while uploading" });
-//             } else if (err.message === "Invalid File Type") {
-//                 // Custom error from fileFilter
-//                 return res.status(400).send({
-//                     error: "Invalid File Type: Only JPG and JPEG files are allowed."
-//                 });
-//             } else {
-//                 // Other errors
-//                 return res.status(500).send({ error: "Internal server error" });
-//             }
-//         }
-
-//         // No errors, upload successful
-//         if (!req.file) {
-//             return res.status(400).send({ error: "No file uploaded." });
-//         }
-
-//         res.status(200).send({
-//             message: "File uploaded successfully",
-//             file: req.file,
-//         });
-//     });
-// });
 
 // Start server
 app.listen(3000, () => {
